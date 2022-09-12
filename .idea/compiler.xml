@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="TA_First_Project" />
         <module name="Iryna_Berezinska_Kyiv_HT2" />
+        <module name="TA_HT2" />
       </profile>
     </annotationProcessing>
   </component>

@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-
 import static java.time.Duration.ofMillis;
 
 public class Test_Avic_Site {
@@ -26,7 +24,7 @@ public class Test_Avic_Site {
         return element;
     }
 
-    WebElement inputData(String query, String text, long millis) throws InterruptedException {
+    void inputData(String query, String text, long millis) throws InterruptedException {
         WebElement element = chromeDriver.findElement(By.xpath(query));
         if (StringUtils.isNotBlank(text)) {
             element.sendKeys(text);
@@ -37,7 +35,6 @@ public class Test_Avic_Site {
             Thread.sleep(millis);
         }
 
-        return element;
     }
 
     @BeforeAll
@@ -57,7 +54,6 @@ public class Test_Avic_Site {
     public void checkBanner() {
         wait = new WebDriverWait(chromeDriver, ofMillis(35000));
                 wait.until(driver -> driver.findElement(By.xpath("(//div[@id='js_popUp'])")).isDisplayed());
-
     }
 
     @Test
@@ -78,22 +74,16 @@ public class Test_Avic_Site {
     @DisplayName("Verify Test")
     public void verifyButtonName() throws InterruptedException {
         clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", MILLIS);
-
         inputData("//input[@class='validate']", "0636686093", MILLIS);
-
         inputData("//input[@class='validate show-password']", "1234@1234", MILLIS);
-
         clickOnElement("//div[@class='checkbox']", MILLIS);
-
         clickOnElement("//button[@class='button-reset main-btn submit main-btn--green']", MILLIS);
-
-        clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", MILLIS);
-//        try {
-        clickOnElement("//a[@href='https://avic.ua/ua/logout']", MILLIS);
-//            element = chromeDriver.findElement(By.xpath("//a[@href='https://avic.ua/ua/logout']"));
-//        } catch (Exception e) {
-//        }
-        Assert.assertNull(clickOnElement("//a[@href='https://avic.ua/ua/logout']", MILLIS));
+        clickOnElement("//*[@id='modalAlert']/button", MILLIS);
+        clickOnElement("//*[@id='mm-0']/div/header/div[2]/div/div[4]/a[1]/div/div", MILLIS);
+        try {
+        } catch (Exception e) {
+        }
+        Assert.assertNotNull(clickOnElement("//a[@href='https://avic.ua/ua/logout']", MILLIS));
     }
 
     @AfterEach
