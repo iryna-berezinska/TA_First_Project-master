@@ -8,18 +8,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
+import static java.time.Duration.ofMillis;
+
 public class Test_Avic_Site {
-    public static final int MILLIS = 5000;
+    public static final int MILLIS = 500;
     private static ChromeDriver chromeDriver;
     WebDriverWait wait;
-    private int millis;
 
     WebElement clickOnElement(String query, long millis) throws InterruptedException {
         WebElement element = chromeDriver.findElement(By.xpath(query));
         element.click();
 
         if (millis > 0) {
-            Duration.ofMillis(millis);
+            Thread.sleep(millis);
         }
 
         return element;
@@ -33,7 +34,7 @@ public class Test_Avic_Site {
         element.click();
 
         if (millis > 0) {
-            Duration.ofMillis(millis);
+            Thread.sleep(millis);
         }
 
         return element;
@@ -54,7 +55,7 @@ public class Test_Avic_Site {
     @Test
     @DisplayName("Check Display Banner")
     public void checkBanner() {
-        wait = new WebDriverWait(chromeDriver, Duration.ofMillis(35000));
+        wait = new WebDriverWait(chromeDriver, ofMillis(35000));
                 wait.until(driver -> driver.findElement(By.xpath("(//div[@id='js_popUp'])")).isDisplayed());
 
     }
@@ -62,7 +63,7 @@ public class Test_Avic_Site {
     @Test
     @DisplayName("Wait Element")
     public void waitElement() {
-    wait = new WebDriverWait(chromeDriver, Duration.ofMillis(3500));
+    wait = new WebDriverWait(chromeDriver, ofMillis(MILLIS));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@href='/ua/iphone/seriya--iphone-13-promax']")));
     }
 
@@ -70,7 +71,7 @@ public class Test_Avic_Site {
     @DisplayName("Search Button")
     public void searchButton() throws InterruptedException {
         inputData("//*[@id='input_search']", "Apple MacBook Air", MILLIS);
-        clickOnElement("//button[@class='button-reset search-btn']",  MILLIS);
+        clickOnElement("//button[@class='button-reset search-btn']", MILLIS);
     }
 
     @Test
@@ -78,22 +79,21 @@ public class Test_Avic_Site {
     public void verifyButtonName() throws InterruptedException {
         clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", MILLIS);
 
-        inputData("//input[@class='validate']", "0636686093", 3000);
+        inputData("//input[@class='validate']", "0636686093", MILLIS);
 
-        inputData("//input[@class='validate show-password']", "1234@1234", 3000);
+        inputData("//input[@class='validate show-password']", "1234@1234", MILLIS);
 
-        clickOnElement("//div[@class='checkbox']", 3000);
+        clickOnElement("//div[@class='checkbox']", MILLIS);
 
-        clickOnElement("//button[@class='button-reset main-btn submit main-btn--green']", 3000);
+        clickOnElement("//button[@class='button-reset main-btn submit main-btn--green']", MILLIS);
 
-        millis = MILLIS;
-        clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", millis);
+        clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", MILLIS);
 //        try {
         clickOnElement("//a[@href='https://avic.ua/ua/logout']", MILLIS);
 //            element = chromeDriver.findElement(By.xpath("//a[@href='https://avic.ua/ua/logout']"));
 //        } catch (Exception e) {
 //        }
-        Assert.assertNull(clickOnElement("//a[@href='https://avic.ua/ua/logout']", 5));
+        Assert.assertNull(clickOnElement("//a[@href='https://avic.ua/ua/logout']", MILLIS));
     }
 
     @AfterEach
