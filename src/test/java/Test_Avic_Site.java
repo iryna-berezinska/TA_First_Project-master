@@ -9,8 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class Test_Avic_Site {
+    public static final int MILLIS = 5000;
     private static ChromeDriver chromeDriver;
     WebDriverWait wait;
+    private int millis;
+
     WebElement clickOnElement(String query, long millis) throws InterruptedException {
         WebElement element = chromeDriver.findElement(By.xpath(query));
         element.click();
@@ -21,6 +24,7 @@ public class Test_Avic_Site {
 
         return element;
     }
+
     WebElement inputData(String query, String text, long millis) throws InterruptedException {
         WebElement element = chromeDriver.findElement(By.xpath(query));
         if (StringUtils.isNotBlank(text)) {
@@ -34,7 +38,6 @@ public class Test_Avic_Site {
 
         return element;
     }
-
 
     @BeforeAll
     public static void setup() {
@@ -66,30 +69,31 @@ public class Test_Avic_Site {
     @Test
     @DisplayName("Search Button")
     public void searchButton() throws InterruptedException {
-        inputData("//*[@id='input_search']", "Apple MacBook Air", 5000);
-        clickOnElement("//button[@class='button-reset search-btn']",  5000);
+        inputData("//*[@id='input_search']", "Apple MacBook Air", MILLIS);
+        clickOnElement("//button[@class='button-reset search-btn']",  MILLIS);
     }
 
     @Test
     @DisplayName("Verify Test")
     public void verifyButtonName() throws InterruptedException {
-        clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", 5000);
+        clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", MILLIS);
 
-        inputData("//input[@class='validate']", "0636686093", 5000);
+        inputData("//input[@class='validate']", "0636686093", 3000);
 
-        inputData("//input[@class='validate show-password']", "1234@1234", 5000);
+        inputData("//input[@class='validate show-password']", "1234@1234", 3000);
 
-        clickOnElement("//div[@class='checkbox']", 5000);
+        clickOnElement("//div[@class='checkbox']", 3000);
 
-        clickOnElement("//button[@class='button-reset main-btn submit main-btn--green']", 5000);
+        clickOnElement("//button[@class='button-reset main-btn submit main-btn--green']", 3000);
 
-        clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", 5000);
+        millis = MILLIS;
+        clickOnElement("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]", millis);
 //        try {
-        clickOnElement("//a[@href='https://avic.ua/ua/logout']", 5000);
+        clickOnElement("//a[@href='https://avic.ua/ua/logout']", MILLIS);
 //            element = chromeDriver.findElement(By.xpath("//a[@href='https://avic.ua/ua/logout']"));
 //        } catch (Exception e) {
 //        }
-        Assert.assertNull(clickOnElement("//a[@href='https://avic.ua/ua/logout']", 3000));
+        Assert.assertNull(clickOnElement("//a[@href='https://avic.ua/ua/logout']", 5));
     }
 
     @AfterEach
