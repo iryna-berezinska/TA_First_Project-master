@@ -53,7 +53,7 @@ public class Test_Avic_Site {
     @Test
     @DisplayName("Verify Test")
     public void verifyButtonName() throws InterruptedException {
-        element = chromeDriver.findElement(By.xpath("//div[@class='balance-btn']"));
+        element = chromeDriver.findElement(By.xpath("//*[@id='mm-0']/header/div[2]/div/div[4]/a[1]"));
         element.click();
         element = chromeDriver.findElement(By.xpath("//input[@class='validate']"));
         element.sendKeys("0636686093");
