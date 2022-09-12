@@ -14,18 +14,18 @@ public class Test_Avic_Site {
     @BeforeAll
     public static void setup() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        chromeDriver = new ChromeDriver();
+        chromeDriver.manage().window().maximize();
     }
 
     @BeforeEach
     public void openBrowser() {
-        chromeDriver = new ChromeDriver();
-        chromeDriver.manage().window().maximize();
+        chromeDriver.get("https://avic.ua/ua");
     }
 
     @Test
     @DisplayName("Check Display Banner")
     public void checkBanner() {
-        chromeDriver.get("https://avic.ua/ua");
         new WebDriverWait(chromeDriver, Duration.ofSeconds(35))
                 .until(driver -> driver.findElement(By.xpath("(//div[@id='js_popUp'])")).isDisplayed());
 
@@ -34,7 +34,6 @@ public class Test_Avic_Site {
     @Test
     @DisplayName("Wait Element")
     public void waitElement() {
-        chromeDriver.get("https://avic.ua/ua");
         WebDriverWait wait = new WebDriverWait(chromeDriver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@href='/ua/iphone/seriya--iphone-13-promax']")));
     }
@@ -42,7 +41,6 @@ public class Test_Avic_Site {
     @Test
     @DisplayName("Search Button")
     public void searchButton() throws InterruptedException {
-        chromeDriver.get("https://avic.ua/ua");
         element = chromeDriver.findElement(By.id("input_search"));
         element.sendKeys("Apple MacBook Air");
         element.click();
@@ -55,7 +53,8 @@ public class Test_Avic_Site {
     @Test
     @DisplayName("Verify Test")
     public void verifyButtonName() throws InterruptedException {
-        chromeDriver.get("https://avic.ua/ua/sign-in");
+        element = chromeDriver.findElement(By.xpath("//div[@class='balance-btn']"));
+        element.click();
         element = chromeDriver.findElement(By.xpath("//input[@class='validate']"));
         element.sendKeys("0636686093");
         element.click();
